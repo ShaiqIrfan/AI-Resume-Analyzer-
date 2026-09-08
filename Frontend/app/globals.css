@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+:root {
+  --background: #07111f;
+  --background-elevated: #0d1728;
+  --surface: #0f172a;
+  --surface-soft: #111c2d;
+  --surface-alt: #172033;
+  --border: rgba(148, 163, 184, 0.2);
+  --border-strong: rgba(148, 163, 184, 0.35);
+  --text-primary: #e2e8f0;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --primary: #5b7cff;
+  --primary-strong: #4f46e5;
+  --primary-soft: rgba(91, 124, 255, 0.14);
+  --accent-from: #4f46e5;
+  --accent-to: #8b5cf6;
+  --success: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.12);
+  --warning: #fbbf24;
+  --warning-soft: rgba(251, 191, 36, 0.12);
+  --error: #f87171;
+  --error-soft: rgba(248, 113, 113, 0.12);
+  --glass-surface: rgba(15, 23, 42, 0.72);
+  --glass-surface-strong: rgba(15, 23, 42, 0.82);
+  --glass-border: rgba(148, 163, 184, 0.18);
+  --glass-highlight: rgba(91, 124, 255, 0.12);
+  --glass-shadow: 0 20px 45px -28px rgba(15, 23, 42, 0.8);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(91, 124, 255, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.12), transparent 25%),
+    linear-gradient(180deg, #07111f 0%, #0b1322 100%);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+p,
+li,
+span,
+button,
+input,
+textarea,
+select {
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+textarea,
+select {
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(91, 124, 255, 0.28);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(129, 140, 248, 0.95);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.ambient-particle {
+  position: absolute;
+  display: block;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(191, 219, 254, 0.9) 0%, rgba(165, 180, 252, 0.8) 48%, rgba(96, 165, 250, 0.25) 100%);
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.45);
+  animation: ambientFloat ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.ambient-spark {
+  position: absolute;
+  display: block;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.96), rgba(191, 219, 254, 0.7), rgba(167, 139, 250, 0.34));
+  opacity: 0;
+  animation: ambientSpark ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.ambient-glow {
+  position: absolute;
+  inset: auto;
+  width: 40rem;
+  height: 40rem;
+  border-radius: 9999px;
+  filter: blur(110px);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.ambient-glow-a {
+  top: -14rem;
+  left: -10rem;
+  background: rgba(96, 165, 250, 0.26);
+}
+
+.ambient-glow-b {
+  right: -10rem;
+  bottom: -14rem;
+  background: rgba(168, 85, 247, 0.2);
+}
+
+.ambient-glow-c {
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32rem;
+  height: 32rem;
+  background: rgba(99, 102, 241, 0.18);
+}
+
+@keyframes ambientFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate3d(12px, -16px, 0) scale(1);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(-10px, -26px, 0) scale(0.95);
+    opacity: 0.42;
+  }
+}
+
+@keyframes ambientSpark {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(45deg) scale(0.7);
+  }
+  22% {
+    opacity: 0.8;
+    transform: translate3d(0, -8px, 0) rotate(45deg) scale(1);
+  }
+  42% {
+    opacity: 1;
+    transform: translate3d(var(--spark-drift-x, 8px), calc(var(--spark-drift-y, -10px) * 0.75), 0) rotate(45deg) scale(1.15);
+  }
+  65% {
+    opacity: 0.55;
+    transform: translate3d(calc(var(--spark-drift-x, 8px) * 0.7), var(--spark-drift-y, -12px), 0) rotate(45deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(var(--spark-drift-x, 8px) * 1.2), calc(var(--spark-drift-y, -12px) * 1.3), 0) rotate(45deg) scale(0.75);
+  }
+}
+
+.glass-panel {
+  position: relative;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.82));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 35%, transparent 100%);
+  pointer-events: none;
+}
+
+.glass-panel-strong {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.8), rgba(17, 24, 39, 0.9));
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 24px 55px -30px rgba(91, 124, 255, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+@media (max-width: 640px) {
+  .glass-panel,
+  .glass-panel-strong {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .ambient-glow {
+    width: 20rem;
+    height: 20rem;
+    filter: blur(70px);
+    opacity: 0.12;
+  }
+
+  .ambient-particle {
+    box-shadow: 0 0 8px rgba(129, 140, 248, 0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-particle,
+  .ambient-spark,
+  .ambient-glow {
+    animation: none !important;
+    opacity: 0.18 !important;
+    transform: none !important;
+  }
+}
